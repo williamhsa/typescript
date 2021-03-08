@@ -9,6 +9,13 @@ function printResult(num: number): void {
 
 printResult(add(5,5));
 
+// let combinedValues: Function;
+let combinedValues:  (a: number, b: number) => number
+combinedValues = add;
+// combinedValues = printResult;
+
+console.log(combinedValues(8, 8));
+
 
 
 // function printResultTwo(num: number): undefined {
