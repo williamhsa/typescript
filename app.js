@@ -1,3 +1,4 @@
+"use strict";
 var userInut;
 var userName;
 userInut = 5;

@@ -1,3 +1,4 @@
+"use strict";
 // const ADMIN = 0;
 // const READ_ONLY = 1;
 // const AUTHOR = 2;
@@ -11,7 +12,7 @@ var Role;
 var personFirst = {
     name: 'William',
     age: 28,
-    role: Role.ADMIN
+    role: Role.ADMIN,
 };
 var person = {
     name: 'William',
