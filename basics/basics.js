@@ -11,7 +11,7 @@ function addSecond(n1, n2, message) {
         console.log('oi');
     return n1 + n2;
 }
-var number1 = 5;
-var number2 = 2.8;
-var result = addSecond(number1, number2, 'max');
+const number1 = 5;
+const number2 = 2.8;
+const result = addSecond(number1, number2, 'max');
 console.log('result: ', result);

@@ -9,29 +9,27 @@ var Role;
     Role[Role["AUTHOR"] = 2] = "AUTHOR";
 })(Role || (Role = {}));
 ;
-var personFirst = {
+const personFirst = {
     name: 'William',
     age: 28,
     role: Role.ADMIN,
 };
-var person = {
+const person = {
     name: 'William',
     age: 28,
     hobbies: ['Sports', 'Cooking'],
     role: [2, 'author'] // tuples
 };
-var testArray;
+let testArray;
 testArray = [1, true, 'oi'];
 console.log(testArray);
-var favoriteActivities;
-var favoriteFoods;
+let favoriteActivities;
+let favoriteFoods;
 favoriteActivities = ['sports'];
 favoriteFoods = ['potato', 1];
 console.log(person.hobbies);
-for (var _i = 0, _a = person.hobbies; _i < _a.length; _i++) {
-    var hobby = _a[_i];
+for (const hobby of person.hobbies)
     console.log(hobby.toUpperCase());
-}
 if (personFirst.role === Role.ADMIN)
     console.log('is admin');
 /*
