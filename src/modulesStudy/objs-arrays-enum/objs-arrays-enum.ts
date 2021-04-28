@@ -39,7 +39,7 @@ console.log(person.hobbies)
 
 for (const hobby of person.hobbies) console.log(hobby.toUpperCase());
 
-if (personFirst.role === Role.ADMIN) console.log('is admin')
+// if (personFirst.role === Role.ADMIN) console.log('is admin')
 
 
 /*
