@@ -76,7 +76,8 @@
     // "forceConsistentCasingInFileNames": true        /* Disallow inconsistently-cased references to the same file. */
   },
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "old-classes",
   ]// arqs que não devem ser incluidos no cálculo quando você executa o TSC em todo o projeto.
   // "**/*.dev.ts"  qualquer arq nesse padrao e em qualquer pasta sera ignorado
 	// "include": [
@@ -85,5 +86,4 @@
 	// que nao estiver listado aqui nao sera compilado.
 	//"files":[] // permite que vc aponte para os arqs individuais, por isso  é um pouco como o include, com a diferenca de que
 	// aqui vc pode especificar pastas inteiras 
-
 }

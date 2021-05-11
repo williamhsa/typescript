@@ -1,11 +1,19 @@
-const userNameNew = 'Max you';
+class Department {
+  name: string;
 
-console.log(userNameNew);
+  constructor(nameIn: string) {
+    this.name = nameIn;
+  };
 
-const buttonTwo = document.querySelector('button')!;
+  describe(this: Department) {
+    console.log('Department: ', this.name);
+  }
+}
 
-// a comment
+const accounting = new Department('Accounting')
+console.log("🚀 ~ file: app.ts ~ line 9 ~ accounting", accounting)
+accounting.describe();
 
-buttonTwo?.addEventListener('click', () => {
-  console.log('Clicked!');
-})
+const accountingCopy = { name: 's', describe: accounting.describe }
+
+accountingCopy.describe();
