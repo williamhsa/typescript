@@ -26,14 +26,48 @@ class Department {
 
 }
 
-const accounting = new Department('123', 'Accounting')
-console.log("🚀 ~ file: app.ts ~ line 9 ~ accounting", accounting)
+class ITDepartment extends Department {
+  admins: string[];
+  constructor(id: string, admins: string[]) {
+    super(id, 'IT') // super chama o construtor da classe que esta extendendo.
+    // preciso chamar o super antes de fazer qualquer coisa com a palavra chave THIS
+    this.admins = admins;
+  }
+}
 
-accounting.addEmployee('will');
-accounting.addEmployee('isa');
+class AccountingDepartment extends Department {
+  constructor(id: string, public reports: string[]) {
+    super(id, 'Accounting') // super chama o construtor da classe que esta extendendo.
+    // preciso chamar o super antes de fazer qualquer coisa com a palavra chave THIS
+  }
+
+  addReports(text: string) {
+    this.reports.push(text);
+  }
+
+  printReports() {
+    console.log(this.reports);
+  }
+}
+
+const it = new ITDepartment('123', ['Will'])
+// console.log("🚀 ~ file: app.ts ~ line 9 ~ accounting", accounting)
+
+it.addEmployee('will');
+it.addEmployee('isa');
 // accounting.employees[2] = 'tupa';
-accounting.describe();
-accounting.printEmployeeInformation();
+it.describe();
+it.name = 'New name'
+it.printEmployeeInformation();
+
+console.log(it)
+
+
+const accounting = new AccountingDepartment('d2', []);
+
+accounting.addReports('Something went wrong');
+accounting.printReports();
+
 
 // const accountingCopy = { name: 's', describe: accounting.describe }
 
