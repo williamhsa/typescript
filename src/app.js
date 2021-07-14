@@ -12,6 +12,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 var Department = /** @class */ (function () {
+    // com protected qualquer classe que extenda Deparment tera acesso a modificar employees
     function Department(id, name) {
         this.id = id;
         this.name = name;
@@ -25,6 +26,9 @@ var Department = /** @class */ (function () {
     //   this.id = idIn;
     //   this.name = nameIn;
     // };
+    Department.createEmployee = function (name) {
+        return { name: name };
+    };
     Department.prototype.describe = function () {
         console.log('Department: ' + this.name + '\nid:' + this.id);
     };
@@ -37,6 +41,7 @@ var Department = /** @class */ (function () {
         console.log(this.employees.length);
         console.log(this.employees);
     };
+    Department.fiscalYear = 2020;
     return Department;
 }());
 var ITDepartment = /** @class */ (function (_super) {
@@ -56,17 +61,40 @@ var AccountingDepartment = /** @class */ (function (_super) {
         var _this = _super.call(this, id, 'Accounting') // super chama o construtor da classe que esta extendendo.
          || this;
         _this.reports = reports;
-        return _this;
         // preciso chamar o super antes de fazer qualquer coisa com a palavra chave THIS
+        _this.lastReport = reports[0];
+        return _this;
     }
+    Object.defineProperty(AccountingDepartment.prototype, "mostRecentReport", {
+        get: function () {
+            if (this.lastReport)
+                return this.lastReport;
+            throw new Error('No report found');
+        },
+        set: function (value) {
+            if (!value)
+                throw new Error('Please pass in a valid value!');
+            this.addReports(value);
+        },
+        enumerable: false,
+        configurable: true
+    });
+    AccountingDepartment.prototype.addEmployee = function (name) {
+        if (name === 'Max')
+            return;
+        this.employees.push(name);
+    };
     AccountingDepartment.prototype.addReports = function (text) {
         this.reports.push(text);
+        this.lastReport = text;
     };
     AccountingDepartment.prototype.printReports = function () {
         console.log(this.reports);
     };
     return AccountingDepartment;
 }(Department));
+var employee1 = Department.createEmployee('tupa');
+console.log(employee1, Department.fiscalYear);
 var it = new ITDepartment('123', ['Will']);
 // console.log("🚀 ~ file: app.ts ~ line 9 ~ accounting", accounting)
 it.addEmployee('will');
@@ -77,7 +105,13 @@ it.name = 'New name';
 it.printEmployeeInformation();
 console.log(it);
 var accounting = new AccountingDepartment('d2', []);
+accounting.mostRecentReport = 'Somethinng went wrong 2';
 accounting.addReports('Something went wrong');
+console.log('ae', accounting.mostRecentReport);
 accounting.printReports();
+accounting.addEmployee('Max');
+accounting.addEmployee('Manu');
+console.log('ae');
+accounting.printEmployeeInformation();
 // const accountingCopy = { name: 's', describe: accounting.describe }
 // accountingCopy.describe();
