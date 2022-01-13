@@ -6,6 +6,8 @@ var __extends = (this && this.__extends) || (function () {
         return extendStatics(d, b);
     };
     return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -29,10 +31,6 @@ var Department = /** @class */ (function () {
     Department.createEmployee = function (name) {
         return { name: name };
     };
-    Department.prototype.describe = function () {
-        console.log('Department: ' + this.name + '\nid:' + this.id);
-    };
-    ;
     Department.prototype.addEmployee = function (employee) {
         this.employees.push(employee);
     };
@@ -44,6 +42,7 @@ var Department = /** @class */ (function () {
     Department.fiscalYear = 2020;
     return Department;
 }());
+console.log('teste');
 var ITDepartment = /** @class */ (function (_super) {
     __extends(ITDepartment, _super);
     function ITDepartment(id, admins) {
@@ -53,6 +52,9 @@ var ITDepartment = /** @class */ (function (_super) {
         _this.admins = admins;
         return _this;
     }
+    ITDepartment.prototype.describe = function () {
+        console.log('it deparment', this.id);
+    };
     return ITDepartment;
 }(Department));
 var AccountingDepartment = /** @class */ (function (_super) {
@@ -79,6 +81,9 @@ var AccountingDepartment = /** @class */ (function (_super) {
         enumerable: false,
         configurable: true
     });
+    AccountingDepartment.prototype.describe = function () {
+        console.log('Accounting Department - ID: ' + this.id);
+    };
     AccountingDepartment.prototype.addEmployee = function (name) {
         if (name === 'Max')
             return;
@@ -112,6 +117,16 @@ accounting.printReports();
 accounting.addEmployee('Max');
 accounting.addEmployee('Manu');
 console.log('ae');
-accounting.printEmployeeInformation();
+// accounting.printEmployeeInformation()
+accounting.describe();
 // const accountingCopy = { name: 's', describe: accounting.describe }
 // accountingCopy.describe();
+// quando nao posso fornecer um metodo geral, mas desejo
+// ...garantir que esse metodo exista, as classes herdadas
+// ...precisarao fornecer sua propria implementacao
+// ...porque vc nao pode fornecer uma implementacao padrao na // ... classe base .
+// Portanto, em tal situacao, convem ter um metodo vazio
+// ... em sua classe base e agora forcar todas as classes
+// ...baseadas nessa classe a adicionar e substituir esse
+// ...metodo, e vc pode faze-lo adicionando a palavra chave
+// ...abstract.

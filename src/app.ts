@@ -1,5 +1,6 @@
-class Department {
-
+abstract class Department { 
+  // nao posso instanciar um classe abstrata
+ // é uma classe apenas que existe para ser herdada
   static fiscalYear = 2020;
   // private readonly id: string;
   // private name: string;
@@ -7,7 +8,7 @@ class Department {
 
   // com protected qualquer classe que extenda Deparment tera acesso a modificar employees
 
-  constructor(private readonly id: string, public name: string) { }; // outra maneira de inicializacao e criacao de propriedades.
+  constructor(protected readonly id: string, public name: string) { }; // outra maneira de inicializacao e criacao de propriedades.
   // o modificador readonly só deixa alterar na inicializacao, depois eu nao consigo mudar essa propriedade em nenhuma lugar do codigo.
   // constructor(idIn: string, nameIn: string) {
   //   this.id = idIn;
@@ -18,9 +19,8 @@ class Department {
     return { name: name }
   }
 
-  describe() {
-    console.log('Department: ' + this.name + '\nid:' + this.id);
-  };
+  // se eu possuo um ou mais metodos abstratos preciso colocar o nome da minha classe como abstract
+  abstract describe(this: Department): void;
 
   addEmployee(employee: string) {
     this.employees.push(employee);
@@ -31,8 +31,10 @@ class Department {
     console.log(this.employees);
   }
 
-
 }
+
+console.log('teste');
+
 
 class ITDepartment extends Department {
   admins: string[];
@@ -40,6 +42,11 @@ class ITDepartment extends Department {
     super(id, 'IT') // super chama o construtor da classe que esta extendendo.
     // preciso chamar o super antes de fazer qualquer coisa com a palavra chave THIS
     this.admins = admins;
+  }
+
+  describe() {
+    console.log('it deparment', this.id);
+    
   }
 }
 
@@ -62,6 +69,10 @@ class AccountingDepartment extends Department {
     super(id, 'Accounting') // super chama o construtor da classe que esta extendendo.
     // preciso chamar o super antes de fazer qualquer coisa com a palavra chave THIS
     this.lastReport = reports[0]
+  }
+
+  describe() {
+    console.log('Accounting Department - ID: ' + this.id);
   }
 
 
@@ -106,9 +117,20 @@ accounting.printReports();
 accounting.addEmployee('Max')
 accounting.addEmployee('Manu')
 console.log('ae')
-accounting.printEmployeeInformation()
-
+// accounting.printEmployeeInformation()
+accounting.describe();
 
 // const accountingCopy = { name: 's', describe: accounting.describe }
 
 // accountingCopy.describe();
+
+// quando nao posso fornecer um metodo geral, mas desejo
+// ...garantir que esse metodo exista, as classes herdadas
+// ...precisarao fornecer sua propria implementacao
+// ...porque vc nao pode fornecer uma implementacao padrao na // ... classe base .
+// Portanto, em tal situacao, convem ter um metodo vazio
+// ... em sua classe base e agora forcar todas as classes
+// ...baseadas nessa classe a adicionar e substituir esse
+// ...metodo, e vc pode faze-lo adicionando a palavra chave
+// ...abstract.
+
