@@ -52,6 +52,7 @@ class ITDepartment extends Department {
 
 class AccountingDepartment extends Department {
   private lastReport: string
+  private static instance: AccountingDepartment
 
   get mostRecentReport() {
     if (this.lastReport) return this.lastReport;
@@ -64,11 +65,24 @@ class AccountingDepartment extends Department {
     this.addReports(value);
   }
 
-
-  constructor(id: string, public reports: string[]) {
+  /* 
+  colanco o private no metodo construtor, isso faz com que garanta
+  que nao possamos chamar de novo, getInstance verificara se ja temos
+  uma instancia dessa classe e, se nao retornara uma nova.
+  um metodo estatico pode ser chamado na propria classe, vc nao
+  precisa instancia-lo
+  
+  */
+  private constructor(id: string, public reports: string[]) {
     super(id, 'Accounting') // super chama o construtor da classe que esta extendendo.
     // preciso chamar o super antes de fazer qualquer coisa com a palavra chave THIS
     this.lastReport = reports[0]
+  }
+
+  static getInstance() {
+    if(AccountingDepartment.instance) return this.instance
+    this.instance = new AccountingDepartment('d2', [])
+    return this.instance
   }
 
   describe() {
@@ -108,7 +122,11 @@ it.printEmployeeInformation();
 console.log(it)
 
 
-const accounting = new AccountingDepartment('d2', []);
+// const accounting = new AccountingDepartment('d2', []);
+const accounting = AccountingDepartment.getInstance()
+console.log("🚀 ~ file: app.ts ~ line 127 ~ accounting", accounting)
+const accounting2 = AccountingDepartment.getInstance()
+console.log("🚀 ~ file: app.ts ~ line 129 ~ accounting2", accounting2)
 
 accounting.mostRecentReport = 'Somethinng went wrong 2'
 accounting.addReports('Something went wrong');
@@ -134,3 +152,10 @@ accounting.describe();
 // ...metodo, e vc pode faze-lo adicionando a palavra chave
 // ...abstract.
 
+/*
+Padrao singleton é sobre garantir que voce sempre tenha apenas 
+exatamente uma instancia de uma determinada classe.
+
+
+
+*/
