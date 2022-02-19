@@ -28,6 +28,13 @@ interfaces nao possuem detalhes de implementacoes, enquanto as
 classes abstratas podem ser uma mistura de que vc precisa sobrescreveer metodos
 e tenho algumas partes de implementacoes concretas de metodos
 
+porque interfaces?
+é util em situacoes como essa em que sabemos que queremos ter um
+conjunto de funcionalidades. Assim forcando com que um classe
+tenha um metodo que vc tenha definido. Assim podemos compartilhar
+facilmente a funcionalidade entre as classes e cada classe deve adicionar
+sua propria implementacao.
+
 */
 var user1;
 user1 = {
@@ -51,3 +58,25 @@ var Person = /** @class */ (function () {
 }());
 user2 = new Person('will');
 console.log('user2', user2);
+var PersonTwo = /** @class */ (function () {
+    function PersonTwo(nameIn) {
+        this.age = 29;
+        if (nameIn) {
+            this.name = nameIn;
+        }
+    }
+    PersonTwo.prototype.greet = function (phrase) {
+        if (this.name)
+            console.log(phrase + ' ' + this.name);
+        else
+            console.log('hi');
+    };
+    return PersonTwo;
+}());
+// let user3: GreetableTwo = new PersonTwo('will');
+var user3 = new PersonTwo();
+user3.greet('oi');
+var add;
+add = function (n1, n2) {
+    return n1 + n2;
+};

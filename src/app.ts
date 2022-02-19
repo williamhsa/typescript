@@ -28,6 +28,13 @@ interfaces nao possuem detalhes de implementacoes, enquanto as
 classes abstratas podem ser uma mistura de que vc precisa sobrescreveer metodos
 e tenho algumas partes de implementacoes concretas de metodos
 
+porque interfaces?
+é util em situacoes como essa em que sabemos que queremos ter um
+conjunto de funcionalidades. Assim forcando com que um classe
+tenha um metodo que vc tenha definido. Assim podemos compartilhar 
+facilmente a funcionalidade entre as classes e cada classe deve adicionar
+sua propria implementacao.
+
 */
 
 interface PersonExample {
@@ -71,3 +78,68 @@ class Person implements Greetable {
 
 user2 = new Person('will');
 console.log('user2', user2)
+
+// readonly
+
+/* 
+nao posso colocar modificador public or private em uma variavel de
+interface
+
+o modificador READONLY
+
+essa propriedade com esse modificador, em qualquer objeto que voce 
+construiu com base nessa interface deve ser configurada apenas uma
+vez e é lida apenas posteriormente para que nao possa ser alterada
+
+Posso
+
+*/
+interface Named {
+  readonly name?: string;
+  outputName?: string;
+}
+
+interface GreetableTwo extends Named {
+  greet(phrase: string): void;
+}
+
+class PersonTwo implements GreetableTwo {
+  name?: string;
+  age = 29;
+
+  constructor(nameIn?: string) {
+    if(nameIn) {
+      this.name = nameIn;
+    }
+  }
+
+  greet(phrase: string) {
+    if(this.name) console.log(phrase + ' ' + this.name);
+    else console.log('hi');
+  }
+}
+
+// let user3: GreetableTwo = new PersonTwo('will');
+let user3: GreetableTwo = new PersonTwo();
+user3.greet('oi');
+
+// user3.name = 'will i am';    //this is wrong, but
+
+/* 
+posso implementar herenca em interfaces
+
+*/
+
+
+// type AddFn = (a: number, b: number) => number;
+// interfaces as functions typescript
+interface AddFn {
+  (a: number, b: number): number;
+}
+
+let add: AddFn;
+
+add = (n1: number, n2: number) => {
+  return n1 + n2;
+}
+
